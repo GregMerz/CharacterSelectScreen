@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [SerializeField]
 public class PlayerManager : MonoBehaviour
@@ -12,7 +13,7 @@ public class PlayerManager : MonoBehaviour
         
     }
     */
-   
+    [Serializable]
     public class Player {
         // Player Info
         public string name;
