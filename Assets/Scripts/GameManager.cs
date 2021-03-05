@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
     public Button quitButton;
 
     private void Awake() {
-        Debug.Log("Awake called");
-
         playerManager = GetComponent<PlayerManager>();
         rollCharacterManager = GetComponent<RollCharacterManager>();
     }
@@ -23,8 +21,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        Debug.Log("Start method called");
-
         rollCharacterButton = GameObject.Find("Button_Roll_Character").GetComponent<Button>();
         rollCharacterButton.onClick.AddListener(() => SceneManager.LoadScene(1));
 

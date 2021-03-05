@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 public class RollCharacterManager : MonoBehaviour
 {
+    //Buttons
     PlayerManager playerManager;
     public Button mainMenuButton;
     public Button rollStrengthButton;
@@ -14,12 +15,19 @@ public class RollCharacterManager : MonoBehaviour
     public Button rollIntelligenceButton;
     public Button rollWisdomButton;
     public Button rollCharismaButton;
+
+    //Race
     public Dropdown raceDropdown;
     public Text raceDescription;
+    protected List<Race> raceList;
 
+    //Abilities
     public Text rolledStrength;
-    public List<Race> raceList;
-
+    public Text rolledDexterity;
+    public Text rolledConstitution;
+    public Text rolledIntelligence;
+    public Text rolledWisdom;
+    public Text rolledCharisma;
 
     public class Race {
         public string name = "";
@@ -33,37 +41,40 @@ public class RollCharacterManager : MonoBehaviour
 
     public Race race;
 
-    private void Awake() {
-        playerManager = GetComponent<PlayerManager>();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
+        playerManager = GetComponent<PlayerManager>();
+
         mainMenuButton = GameObject.Find("Button_Main_Menu").GetComponent<Button>();
         mainMenuButton.onClick.AddListener(() => SceneManager.LoadScene(0));
 
         rollStrengthButton = GameObject.Find("Button_Roll_Strength").GetComponent<Button>();
-        rollStrengthButton.onClick.AddListener(() => Roll7d4());
+        rollStrengthButton.onClick.AddListener(() => changeTextStrength());
 
         rollDexterityButton = GameObject.Find("Button_Roll_Dexterity").GetComponent<Button>();
-        rollDexterityButton.onClick.AddListener(() => Roll7d4());
+        rollDexterityButton.onClick.AddListener(() => changeTextDexterity());
 
         rollConstitutionButton = GameObject.Find("Button_Roll_Constitution").GetComponent<Button>();
-        rollConstitutionButton.onClick.AddListener(() => Roll7d4());
+        rollConstitutionButton.onClick.AddListener(() => changeTextConstitution());
 
         rollIntelligenceButton = GameObject.Find("Button_Roll_Intelligence").GetComponent<Button>();
-        rollIntelligenceButton.onClick.AddListener(() => Roll7d4());
+        rollIntelligenceButton.onClick.AddListener(() => changeTextIntelligence());
 
         rollWisdomButton = GameObject.Find("Button_Roll_Wisdom").GetComponent<Button>();
-        rollWisdomButton.onClick.AddListener(() => Roll7d4());
+        rollWisdomButton.onClick.AddListener(() => changeTextWisdom());
 
         rollCharismaButton = GameObject.Find("Button_Roll_Charisma").GetComponent<Button>();
-        rollCharismaButton.onClick.AddListener(() => Roll7d4());
+        rollCharismaButton.onClick.AddListener(() => changeTextCharisma());
 
         rolledStrength = GameObject.Find("Text_Rolled_Strength").GetComponent<Text>();
+        rolledDexterity = GameObject.Find("Text_Rolled_Dexterity").GetComponent<Text>();
+        rolledConstitution = GameObject.Find("Text_Rolled_Constitution").GetComponent<Text>();
+        rolledIntelligence = GameObject.Find("Text_Rolled_Intelligence").GetComponent<Text>();
+        rolledWisdom = GameObject.Find("Text_Rolled_Wisdom").GetComponent<Text>();
+        rolledCharisma = GameObject.Find("Text_Rolled_Charisma").GetComponent<Text>();
 
-
+        // Race Dropdown
         raceList = new List<Race>() {
         new Race() { name = "Dragonborn", summary = "Your draconic heritage manifests in a variety of traits you share with other dragonborn.", HP = 1, speedWalking = 1, speedRunning = 2, jumpHeight = 1, languages = "Common, Draconic"},
         new Race() { name = "Dwarf", summary = "Your dwarf character has an assortment of in abilities, part and parcel of dwarven nature.", HP = 1, speedWalking = 1, speedRunning = 2, jumpHeight = 1, languages = "Common, Dwarfish"},
@@ -76,7 +87,7 @@ public class RollCharacterManager : MonoBehaviour
         new Race() { name = "Tiefling", summary = "Tieflings share certain racial traits as a result of their infernal descent.", HP = 1, speedWalking = 1, speedRunning = 2, jumpHeight = 1, languages = "Common, Tieflaic"}
         };
 
-        GameObject objRaceDropdown = GameObject.FindGameObjectWithTag("Dropdown_Race");
+//        GameObject objRaceDropdown = GameObject.FindGameObjectWithTag("Dropdown_Race");
         raceDescription = GameObject.Find("Text_Race_Description").GetComponent<Text>();
 
         raceDropdown = GameObject.Find("Dropdown_Race").GetComponent<Dropdown>();
@@ -95,12 +106,14 @@ public class RollCharacterManager : MonoBehaviour
     public void raceDropdown_IndexChanged(int index) {
         Race selected = raceList[raceDropdown.value];
 
+/*
         playerManager.player.race = selected.name;
         playerManager.player.walkingSpeed = selected.speedWalking;
         playerManager.player.runningSpeed = selected.speedRunning;
         playerManager.player.jumpHeight = selected.jumpHeight;
         playerManager.player.maxHp = selected.HP;
         playerManager.player.currHp = selected.HP;
+*/
 
         raceDescription.text = selected.name + "- " + selected.summary
             + "\n HP = " + selected.HP.ToString()
@@ -114,7 +127,49 @@ public class RollCharacterManager : MonoBehaviour
         
     }
 
-    void Roll7d4() {
+    void changeTextStrength() {
+        int strength = Roll7d4();
+        playerManager.player.strength = strength;
+
+        rolledStrength.text = "" + strength;
+    }
+
+    void changeTextDexterity() {
+        int dexterity = Roll7d4();
+        playerManager.player.dexterity = dexterity;
+
+        rolledDexterity.text = "" + dexterity;
+    }
+
+    void changeTextConstitution() {
+        int constitution = Roll7d4();
+        playerManager.player.constitution = constitution;
+
+        rolledConstitution.text = "" + constitution;
+    }
+
+    void changeTextIntelligence() {
+        int intelligence = Roll7d4();
+        playerManager.player.intelligence = intelligence;
+
+        rolledIntelligence.text = "" + intelligence;
+    }
+
+    void changeTextWisdom() {
+        int wisdom = Roll7d4();
+        playerManager.player.wisdom = wisdom;
+
+        rolledWisdom.text = "" + wisdom;
+    }
+
+    void changeTextCharisma() {
+        int charisma = Roll7d4();
+        playerManager.player.charisma = charisma;
+
+        rolledCharisma.text = "" + charisma;
+    }
+
+    int Roll7d4() {
         int sum = 0;
         int modifier = 2;
         int highestRoll = 0;
@@ -143,8 +198,6 @@ public class RollCharacterManager : MonoBehaviour
         sum = highestRoll + secondHighestRoll + thirdHighestRoll;
         sum += modifier;
 
-        rolledStrength.text = "" + sum;
-
-        Debug.Log(sum);
+        return sum;
     }
 }
