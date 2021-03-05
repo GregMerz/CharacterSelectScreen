@@ -8,6 +8,7 @@ public class RollCharacterController : MonoBehaviour
 {
     //Buttons
     public Button mainMenuButton;
+    public Button makeCharacter;
     public Button rollStrengthButton;
     public Button rollDexterityButton;
     public Button rollConstitutionButton;
@@ -19,6 +20,11 @@ public class RollCharacterController : MonoBehaviour
     public Dropdown raceDropdown;
     public Text raceDescription;
     protected List<Race> raceList;
+
+    //Class
+    public Dropdown classDropdown;
+    public Text classDescription;
+    protected List<DnDClass> classList;
 
     //Abilities
     public Text rolledStrength;
@@ -32,6 +38,9 @@ public class RollCharacterController : MonoBehaviour
     public InputField inputCharacterName;
     public Text characterName;
 
+    //JSON
+    public Text jsonFile;
+
     public class Race {
         public string name = "";
         public string summary = "";
@@ -42,6 +51,11 @@ public class RollCharacterController : MonoBehaviour
         public string languages = "Common";
     }
 
+    public class DnDClass {
+        public string name = "";
+        public string summary = "";
+    }
+
     public Race race;
 
     // Start is called before the first frame update
@@ -50,6 +64,13 @@ public class RollCharacterController : MonoBehaviour
         mainMenuButton = GameObject.Find("Button_Main_Menu").GetComponent<Button>();
         mainMenuButton.onClick.AddListener(() => SceneManager.LoadScene(0));
 
+        //JSON File
+        jsonFile = GameObject.Find("Text_JSON").GetComponent<Text>();
+
+        makeCharacter = GameObject.Find("Button_Make_Character").GetComponent<Button>();
+        makeCharacter.onClick.AddListener(() => setJSON());
+
+        //Abilities
         rollStrengthButton = GameObject.Find("Button_Roll_Strength").GetComponent<Button>();
         rollStrengthButton.onClick.AddListener(() => changeTextStrength());
 
@@ -75,6 +96,35 @@ public class RollCharacterController : MonoBehaviour
         rolledWisdom = GameObject.Find("Text_Rolled_Wisdom").GetComponent<Text>();
         rolledCharisma = GameObject.Find("Text_Rolled_Charisma").GetComponent<Text>();
 
+        // Class Dropdown
+        classList = new List<DnDClass>() {
+        new DnDClass() { name = "Barbarian", summary = "In battle, you fight with primal ferocity. For some barbarians, rage is a means to an end–that end being violence."},
+        new DnDClass() { name = "Bard", summary = "Whether singing folk ballads in taverns or elaborate compositions in royal courts, bards use their gifts to hold audiences spellbound."},
+        new DnDClass() { name = "Cleric", summary = "Clerics act as conduits of divine power."},
+        new DnDClass() { name = "Druid", summary = "Druids venerate the forces of nature themselves. Druids holds certain plants and animals to be sacred, and most druids are devoted to one of the many nature deities."},
+        new DnDClass() { name = "Fighter", summary = "Different fighters choose different approaches to perfecting their fighting prowess, but they all end up perfecting it."},
+        new DnDClass() { name = "Monk", summary = "Coming from monasteries, monks are masters of martial arts combat and meditators with the ki living forces."},
+        new DnDClass() { name = "Paladin", summary = "Paladins are the ideal of the knight in shining armor; they uphold ideals of justice, virtue, and order and use righteous might to meet their ends."},
+        new DnDClass() { name = "Ranger", summary = "Acting as a bulwark between civilization and the terrors of the wilderness, rangers study, track, and hunt their favored enemies."},
+        new DnDClass() { name = "Rogue", summary = "Rogues have many features in common, including their emphasis on perfecting their skills, their precise and deadly approach to combat, and their increasingly quick reflexes."},
+        new DnDClass() { name = "Sorcerer", summary = "An event in your past, or in the life of a parent or ancestor, left an indelible mark on you, infusing you with arcane magic. As a sorcerer the power of your magic relies on your ability to project your will into the world."},
+        new DnDClass() { name = "Warlock", summary = "You struck a bargain with an otherworldly being of your choice: the Archfey, the Fiend, or the Great Old One who has imbued you with mystical powers, granted you knowledge of occult lore, bestowed arcane research and magic on you and thus has given you facility with spells."},
+        new DnDClass() { name = "Wizard", summary = "The study of wizardry is ancient, stretching back to the earliest mortal discoveries of magic. As a student of arcane magic, you have a spellbook containing spells that show glimmerings of your true power which is a catalyst for your mastery over certain spells."}
+        };
+
+        classDescription = GameObject.Find("Text_Class_Description").GetComponent<Text>();
+        classDropdown = GameObject.Find("Dropdown_Class").GetComponent<Dropdown>();
+        classDropdown.ClearOptions();
+        List<string> newOptions = new List<string>();
+        for (int i = 0; i < classList.Count; i++) {
+            newOptions.Add(classList[i].name);
+        }
+
+        classDropdown.AddOptions(newOptions);
+        classDropdown_IndexChanged(0);
+
+        classDropdown.onValueChanged.AddListener(classDropdown_IndexChanged);
+
         // Race Dropdown
         raceList = new List<Race>() {
         new Race() { name = "Dragonborn", summary = "Your draconic heritage manifests in a variety of traits you share with other dragonborn.", HP = 1, speedWalking = 1, speedRunning = 2, jumpHeight = 1, languages = "Common, Draconic"},
@@ -91,7 +141,7 @@ public class RollCharacterController : MonoBehaviour
         raceDescription = GameObject.Find("Text_Race_Description").GetComponent<Text>();
         raceDropdown = GameObject.Find("Dropdown_Race").GetComponent<Dropdown>();
         raceDropdown.ClearOptions();
-        List<string> newOptions = new List<string>();
+        newOptions = new List<string>();
         for (int i = 0; i < raceList.Count; i++) {
             newOptions.Add(raceList[i].name);
         }
@@ -107,6 +157,9 @@ public class RollCharacterController : MonoBehaviour
         inputCharacterName.onValueChanged.AddListener(output);
     }
 
+    public void setJSON() {
+        jsonFile.text = "{\"name\": ,\"race\": ,\"playerClass\": ,\"allignment\": ,\"strength\": ,\"dexterity\": ,\"constitution\": ,\"intelligence\": ,\"wisdom\": ,\"charisma\": ,\"currXp\": ,\"maxXp\": ,\"currHp\": ,\"maxHp\": ,\"armorClass\": ,\"walkingSpeed\": ,\"runningSpeed\": ,\"jumpHeight\": ,\"itemList\": }";   
+    }
     public void output(string text) {
         
     }
@@ -127,6 +180,12 @@ public class RollCharacterController : MonoBehaviour
             + "\nHP = " + selected.HP.ToString()
             + "\nWalkingSpeed = " + selected.speedWalking.ToString()
             + "\nLanguages = " + selected.languages.ToString();
+    }
+
+    public void classDropdown_IndexChanged(int index) {
+        DnDClass selected = classList[classDropdown.value];
+
+        classDescription.text = selected.name + "- " + selected.summary;
     }
 
     // Update is called once per frame
