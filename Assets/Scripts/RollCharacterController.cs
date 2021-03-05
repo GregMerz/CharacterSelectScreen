@@ -7,7 +7,6 @@ using System;
 public class RollCharacterController : MonoBehaviour
 {
     //Buttons
-    PlayerManager playerManager;
     public Button mainMenuButton;
     public Button rollStrengthButton;
     public Button rollDexterityButton;
@@ -29,6 +28,10 @@ public class RollCharacterController : MonoBehaviour
     public Text rolledWisdom;
     public Text rolledCharisma;
 
+    // InputField
+    public InputField inputCharacterName;
+    public Text characterName;
+
     public class Race {
         public string name = "";
         public string summary = "";
@@ -44,8 +47,6 @@ public class RollCharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerManager = GetComponent<PlayerManager>();
-
         mainMenuButton = GameObject.Find("Button_Main_Menu").GetComponent<Button>();
         mainMenuButton.onClick.AddListener(() => SceneManager.LoadScene(0));
 
@@ -99,6 +100,15 @@ public class RollCharacterController : MonoBehaviour
         raceDropdown_IndexChanged(0);
 
         raceDropdown.onValueChanged.AddListener(raceDropdown_IndexChanged);
+
+        characterName = GameObject.Find("Text_Character_Name").GetComponent<Text>();
+        inputCharacterName = GameObject.Find("InputField_Character_Name").GetComponent<InputField>();
+
+        inputCharacterName.onValueChanged.AddListener(output);
+    }
+
+    public void output(string text) {
+        
     }
 
     public void raceDropdown_IndexChanged(int index) {
@@ -111,7 +121,7 @@ public class RollCharacterController : MonoBehaviour
         playerManager.player.jumpHeight = selected.jumpHeight;
         playerManager.player.maxHp = selected.HP;
         playerManager.player.currHp = selected.HP;
-*/
+        */
 
         raceDescription.text = selected.name + "- " + selected.summary
             + "\nHP = " + selected.HP.ToString()
