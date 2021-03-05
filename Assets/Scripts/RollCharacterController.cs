@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
-public class RollCharacterManager : MonoBehaviour
+public class RollCharacterController : MonoBehaviour
 {
     //Buttons
     PlayerManager playerManager;
@@ -87,9 +87,7 @@ public class RollCharacterManager : MonoBehaviour
         new Race() { name = "Tiefling", summary = "Tieflings share certain racial traits as a result of their infernal descent.", HP = 1, speedWalking = 1, speedRunning = 2, jumpHeight = 1, languages = "Common, Tieflaic"}
         };
 
-//        GameObject objRaceDropdown = GameObject.FindGameObjectWithTag("Dropdown_Race");
         raceDescription = GameObject.Find("Text_Race_Description").GetComponent<Text>();
-
         raceDropdown = GameObject.Find("Dropdown_Race").GetComponent<Dropdown>();
         raceDropdown.ClearOptions();
         List<string> newOptions = new List<string>();
@@ -116,9 +114,9 @@ public class RollCharacterManager : MonoBehaviour
 */
 
         raceDescription.text = selected.name + "- " + selected.summary
-            + "\n HP = " + selected.HP.ToString()
-            + "\n WalkingSpeed = " + selected.speedWalking.ToString()
-            + "\n Languages = " + selected.languages.ToString();
+            + "\nHP = " + selected.HP.ToString()
+            + "\nWalkingSpeed = " + selected.speedWalking.ToString()
+            + "\nLanguages = " + selected.languages.ToString();
     }
 
     // Update is called once per frame
@@ -129,44 +127,44 @@ public class RollCharacterManager : MonoBehaviour
 
     void changeTextStrength() {
         int strength = Roll7d4();
-        playerManager.player.strength = strength;
+//        playerManager.player.strength = strength;
 
-        rolledStrength.text = "" + strength;
+        rolledStrength.text = strength.ToString();
     }
 
     void changeTextDexterity() {
         int dexterity = Roll7d4();
-        playerManager.player.dexterity = dexterity;
+//        playerManager.player.dexterity = dexterity;
 
-        rolledDexterity.text = "" + dexterity;
+        rolledDexterity.text = "" + dexterity.ToString();
     }
 
     void changeTextConstitution() {
         int constitution = Roll7d4();
-        playerManager.player.constitution = constitution;
+//        playerManager.player.constitution = constitution;
 
-        rolledConstitution.text = "" + constitution;
+        rolledConstitution.text = "" + constitution.ToString();
     }
 
     void changeTextIntelligence() {
         int intelligence = Roll7d4();
-        playerManager.player.intelligence = intelligence;
+//        playerManager.player.intelligence = intelligence;
 
-        rolledIntelligence.text = "" + intelligence;
+        rolledIntelligence.text = "" + intelligence.ToString();
     }
 
     void changeTextWisdom() {
         int wisdom = Roll7d4();
-        playerManager.player.wisdom = wisdom;
+//        playerManager.player.wisdom = wisdom;
 
-        rolledWisdom.text = "" + wisdom;
+        rolledWisdom.text = "" + wisdom.ToString();
     }
 
     void changeTextCharisma() {
         int charisma = Roll7d4();
-        playerManager.player.charisma = charisma;
+//        playerManager.player.charisma = charisma;
 
-        rolledCharisma.text = "" + charisma;
+        rolledCharisma.text = "" + charisma.ToString();
     }
 
     int Roll7d4() {
