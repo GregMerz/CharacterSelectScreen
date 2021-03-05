@@ -708,6 +708,7 @@ GameObject:
   - component: {fileID: 958154371}
   - component: {fileID: 958154370}
   - component: {fileID: 958154372}
+  - component: {fileID: 958154373}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -727,8 +728,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8f308068aed7e47b44c78cc53ee8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 0}
-  isCharacterMade: 0
   rollCharacterButton: {fileID: 0}
   playGameButton: {fileID: 0}
   quitButton: {fileID: 0}
@@ -779,6 +778,18 @@ MonoBehaviour:
     runningSpeed: 0
     jumpHeight: 0
     itemList: []
+--- !u!114 &958154373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958154369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14802256a61b3048bed44a196325ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &976085792
 GameObject:
   m_ObjectHideFlags: 0

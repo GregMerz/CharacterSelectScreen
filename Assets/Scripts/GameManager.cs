@@ -6,17 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerManager playerManager;
-    public bool isCharacterMade = false;
+    PlayerManager playerManager;
+    RollCharacterManager rollCharacterManager;
     public Button rollCharacterButton;
     public Button playGameButton;
     public Button quitButton;
-    public Button mainMenuButton;
 
-    
-    public void Awake() {
-        playerManager.GetComponent<PlayerManager>();
+    private void Awake() {
+        Debug.Log("Awake called");
+
+        playerManager = GetComponent<PlayerManager>();
+        rollCharacterManager = GetComponent<RollCharacterManager>();
     }
+
 
     // Start is called before the first frame update
     public void Start()
@@ -24,26 +26,21 @@ public class GameManager : MonoBehaviour
         Debug.Log("Start method called");
 
         rollCharacterButton = GameObject.Find("Button_Roll_Character").GetComponent<Button>();
-        rollCharacterButton.onClick.AddListener(() => LoadScene(1) );
+        rollCharacterButton.onClick.AddListener(() => SceneManager.LoadScene(1));
 
         playGameButton = GameObject.Find("Button_Play_Game").GetComponent<Button>();
-        playGameButton.onClick.AddListener(() => LoadScene(2));
+        playGameButton.onClick.AddListener(() => SceneManager.LoadScene(2));
 
         quitButton = GameObject.Find("Button_Quit").GetComponent<Button>();
         quitButton.onClick.AddListener(() => quitGame());
 
-        mainMenuButton = GameObject.Find("Button_Main_Menu").GetComponent<Button>();
-        mainMenuButton.onClick.AddListener(() => LoadScene(0));
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public void LoadScene(int level) {
-        SceneManager.LoadScene(level);
     }
 
     public void quitGame() {
