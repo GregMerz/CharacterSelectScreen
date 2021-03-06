@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController _instance;
     public Player player;
+    public bool isPlayerMade = false;
 
     void Awake() {
         if (_instance != null && _instance != this) {

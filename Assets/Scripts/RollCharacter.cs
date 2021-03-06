@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
-public class RollCharacterController : MonoBehaviour
+public class RollCharacter : MonoBehaviour
 {
     private PlayerController playerController;
 
@@ -60,48 +60,45 @@ public class RollCharacterController : MonoBehaviour
 
     public Race race;
 
-    void Start() {
-
+    void Awake() {
     }
 
     // Start is called before the first frame update
-    public void initRollCharacter(PlayerController pController)
-    {
-        playerController = pController;
+    void Start() {
+        playerController = GameObject.Find("GameManager").GetComponent<GameManager>().playerController;
 
+        // Main Menu
         mainMenuButton = GameObject.Find("Button_Main_Menu").GetComponent<Button>();
         mainMenuButton.onClick.AddListener(() => SceneManager.LoadScene(0));
 
-        //JSON File
-        jsonFile = GameObject.Find("Text_JSON").GetComponent<Text>();
-
+        // Make Character
         makeCharacter = GameObject.Find("Button_Make_Character").GetComponent<Button>();
         makeCharacter.onClick.AddListener(() => setJSON());
+        jsonFile = GameObject.Find("Text_JSON").GetComponent<Text>();
 
         //Abilities
         rollStrengthButton = GameObject.Find("Button_Roll_Strength").GetComponent<Button>();
         rollStrengthButton.onClick.AddListener(() => changeTextStrength());
+        rolledStrength = GameObject.Find("Text_Rolled_Strength").GetComponent<Text>();
 
         rollDexterityButton = GameObject.Find("Button_Roll_Dexterity").GetComponent<Button>();
         rollDexterityButton.onClick.AddListener(() => changeTextDexterity());
+        rolledDexterity = GameObject.Find("Text_Rolled_Dexterity").GetComponent<Text>();
 
         rollConstitutionButton = GameObject.Find("Button_Roll_Constitution").GetComponent<Button>();
         rollConstitutionButton.onClick.AddListener(() => changeTextConstitution());
+        rolledConstitution = GameObject.Find("Text_Rolled_Constitution").GetComponent<Text>();
 
         rollIntelligenceButton = GameObject.Find("Button_Roll_Intelligence").GetComponent<Button>();
         rollIntelligenceButton.onClick.AddListener(() => changeTextIntelligence());
+        rolledIntelligence = GameObject.Find("Text_Rolled_Intelligence").GetComponent<Text>();
 
         rollWisdomButton = GameObject.Find("Button_Roll_Wisdom").GetComponent<Button>();
         rollWisdomButton.onClick.AddListener(() => changeTextWisdom());
+        rolledWisdom = GameObject.Find("Text_Rolled_Wisdom").GetComponent<Text>();
 
         rollCharismaButton = GameObject.Find("Button_Roll_Charisma").GetComponent<Button>();
         rollCharismaButton.onClick.AddListener(() => changeTextCharisma());
-
-        rolledStrength = GameObject.Find("Text_Rolled_Strength").GetComponent<Text>();
-        rolledDexterity = GameObject.Find("Text_Rolled_Dexterity").GetComponent<Text>();
-        rolledConstitution = GameObject.Find("Text_Rolled_Constitution").GetComponent<Text>();
-        rolledIntelligence = GameObject.Find("Text_Rolled_Intelligence").GetComponent<Text>();
-        rolledWisdom = GameObject.Find("Text_Rolled_Wisdom").GetComponent<Text>();
         rolledCharisma = GameObject.Find("Text_Rolled_Charisma").GetComponent<Text>();
 
         // Class Dropdown
@@ -159,17 +156,25 @@ public class RollCharacterController : MonoBehaviour
 
         raceDropdown.onValueChanged.AddListener(raceDropdown_IndexChanged);
 
+        // Character Name
         characterName = GameObject.Find("Text_Character_Name").GetComponent<Text>();
         inputCharacterName = GameObject.Find("InputField_Character_Name").GetComponent<InputField>();
 
-        inputCharacterName.onValueChanged.AddListener(output);
+        inputCharacterName.onValueChanged.AddListener(setName);
+    }
+
+    public void initRollCharacter(PlayerController pController) {
+        
+        
     }
 
     public void setJSON() {
         jsonFile.text = "{\"name\": \"" + playerController.player.name + "\",\"race\": \"" + playerController.player.race + "\",\"playerClass\": \"" + playerController.player.playerClass + "\",\"allignment\": \"" + playerController.player.allignment + "\",\"strength\": \"" + playerController.player.strength + "\",\"dexterity\": \"" + playerController.player.dexterity + "\",\"constitution\": \"" + playerController.player.constitution + "\",\"intelligence\": \"" + playerController.player.intelligence + "\",\"wisdom\": \"" + playerController.player.wisdom + "\",\"charisma\": \"" + playerController.player.charisma + "\",\"currXp\": " + playerController.player.currXp + ",\"maxXp\": " + playerController.player.maxXp + ",\"currHp\": " + playerController.player.currHp + ",\"maxHp\": " + playerController.player.maxHp + ",\"armorClass\": " + playerController.player.armorClass + ",\"walkingSpeed\": " + playerController.player.walkingSpeed + ",\"runningSpeed\": " + playerController.player.runningSpeed + ",\"jumpHeight\": " + playerController.player.jumpHeight + ",\"itemList\": []}";   
+    
+        playerController.isPlayerMade = true;
     }
-    public void output(string text) {
-        
+    public void setName(string name) {
+        playerController.player.name = name;
     }
 
     public void raceDropdown_IndexChanged(int index) {
@@ -190,6 +195,8 @@ public class RollCharacterController : MonoBehaviour
 
     public void classDropdown_IndexChanged(int index) {
         DnDClass selected = classList[classDropdown.value];
+
+        playerController.player.playerClass = selected.name;
 
         classDescription.text = selected.name + "- " + selected.summary;
     }

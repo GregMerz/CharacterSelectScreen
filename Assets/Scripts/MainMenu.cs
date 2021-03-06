@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MainMenuController : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
+    public GameManager gameManager;
     public Button rollCharacterButton;
     public Button playGameButton;
     public Button quitButton;
@@ -13,20 +14,16 @@ public class MainMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-    public void initMainMenu(PlayerController playerController) {
         rollCharacterButton = GameObject.Find("Button_Roll_Character").GetComponent<Button>();
-        rollCharacterButton.onClick.AddListener(() => SceneManager.LoadScene(1));
+        rollCharacterButton.onClick.AddListener(() => onRollCharacterClicked());
 
         playGameButton = GameObject.Find("Button_Play_Game").GetComponent<Button>();
-        playGameButton.onClick.AddListener(() => SceneManager.LoadScene(2));
+        playGameButton.onClick.AddListener(() => LoadScene(2));
 
         quitButton = GameObject.Find("Button_Quit").GetComponent<Button>();
-        quitButton.onClick.AddListener(() => quitGame());
-
-        playerController.player.name = "Henry";
+        quitButton.onClick.AddListener(() => onQuitClicked());
     }
 
     // Update is called once per frame
@@ -35,9 +32,21 @@ public class MainMenuController : MonoBehaviour
         
     }
 
-    public void quitGame() {
-        Debug.Log("Quit button clicked");
+    void LoadScene(int level) {
+        SceneManager.LoadScene(level);
+    }
 
+    void onRollCharacterClicked() {
+        LoadScene(1);
+    }
+
+    void onPlayGameClicked() {
+        if (gameManager.playerController.isPlayerMade) {
+            LoadScene(2);
+        }
+    }
+
+    public void onQuitClicked() {
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 

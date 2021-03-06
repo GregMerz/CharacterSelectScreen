@@ -1164,7 +1164,7 @@ RectTransform:
   - {fileID: 162458719}
   - {fileID: 2091305081}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4633,6 +4633,70 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883466467}
   m_CullTransparentMesh: 0
+--- !u!1 &1887249972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887249974}
+  - component: {fileID: 1887249973}
+  m_Layer: 0
+  m_Name: RollCharacterController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1887249973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887249972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c515e82f435c854fb0c1701bbefc44d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuButton: {fileID: 0}
+  makeCharacter: {fileID: 0}
+  rollStrengthButton: {fileID: 0}
+  rollDexterityButton: {fileID: 0}
+  rollConstitutionButton: {fileID: 0}
+  rollIntelligenceButton: {fileID: 0}
+  rollWisdomButton: {fileID: 0}
+  rollCharismaButton: {fileID: 0}
+  raceDropdown: {fileID: 0}
+  raceDescription: {fileID: 0}
+  classDropdown: {fileID: 0}
+  classDescription: {fileID: 0}
+  rolledStrength: {fileID: 0}
+  rolledDexterity: {fileID: 0}
+  rolledConstitution: {fileID: 0}
+  rolledIntelligence: {fileID: 0}
+  rolledWisdom: {fileID: 0}
+  rolledCharisma: {fileID: 0}
+  inputCharacterName: {fileID: 0}
+  characterName: {fileID: 0}
+  jsonFile: {fileID: 0}
+--- !u!4 &1887249974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887249972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 232.74811, y: 143.44238, z: -9.875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1895482857
 GameObject:
   m_ObjectHideFlags: 0
