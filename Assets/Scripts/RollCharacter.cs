@@ -167,16 +167,22 @@ public class RollCharacter : MonoBehaviour
         // JSON File
         jsonFile = GameObject.Find("Text_JSON_File").GetComponent<Text>();
         inputJSON = GameObject.Find("InputField_JSON").GetComponent<InputField>();
-
-        inputJSON.DeactivateInputField();
     }
 
     public void setJSON() {
-        string jsonFormattedFile = "{\"name\": \"" + playerController.player.name + "\",\"race\": \"" + playerController.player.race + "\",\"playerClass\": \"" + playerController.player.playerClass + "\",\"allignment\": \"" + playerController.player.allignment + "\",\"strength\": " + playerController.player.strength + ",\"dexterity\": " + playerController.player.dexterity + ",\"constitution\": " + playerController.player.constitution + ",\"intelligence\": " + playerController.player.intelligence + ",\"wisdom\": " + playerController.player.wisdom + ",\"charisma\": " + playerController.player.charisma + ",\"currXp\": " + playerController.player.currXp + ",\"maxXp\": " + playerController.player.maxXp + ",\"currHp\": " + playerController.player.currHp + ",\"maxHp\": " + playerController.player.maxHp + ",\"armorClass\": " + playerController.player.armorClass + ",\"walkingSpeed\": " + playerController.player.walkingSpeed + ",\"runningSpeed\": " + playerController.player.runningSpeed + ",\"jumpHeight\": " + playerController.player.jumpHeight + ",\"itemList\": []}";   
+        // check if all character options are selected
+        if ( !( playerController.player.name == null || playerController.player.name == "" || playerController.player.strength == 0 || playerController.player.dexterity == 0 || playerController.player.constitution == 0 || playerController.player.intelligence == 0 || playerController.player.wisdom == 0 || playerController.player.charisma == 0) ) {
 
-        inputJSON.SetTextWithoutNotify(jsonFormattedFile);
+            string jsonFormattedFile = "{\"name\": \"" + playerController.player.name + "\",\"race\": \"" + playerController.player.race + "\",\"playerClass\": \"" + playerController.player.playerClass + "\",\"allignment\": \"" + playerController.player.allignment + "\",\"strength\": " + playerController.player.strength + ",\"dexterity\": " + playerController.player.dexterity + ",\"constitution\": " + playerController.player.constitution + ",\"intelligence\": " + playerController.player.intelligence + ",\"wisdom\": " + playerController.player.wisdom + ",\"charisma\": " + playerController.player.charisma + ",\"currXp\": " + playerController.player.currXp + ",\"maxXp\": " + playerController.player.maxXp + ",\"currHp\": " + playerController.player.currHp + ",\"maxHp\": " + playerController.player.maxHp + ",\"armorClass\": " + playerController.player.armorClass + ",\"walkingSpeed\": " + playerController.player.walkingSpeed + ",\"runningSpeed\": " + playerController.player.runningSpeed + ",\"jumpHeight\": " + playerController.player.jumpHeight + ",\"itemList\": []}";   
+
+            inputJSON.SetTextWithoutNotify(jsonFormattedFile);
     
-        playerController.isPlayerMade = true;
+            playerController.isPlayerMade = true;
+        }
+
+        else {
+            inputJSON.SetTextWithoutNotify("Please select all options for your character");
+        }
     }
     public void setName(string name) {
         playerController.player.name = name;

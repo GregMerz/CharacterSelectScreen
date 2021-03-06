@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameManager gameManager;
+    public PlayerController playerController;
     public Button rollCharacterButton;
     public Button playGameButton;
     public Button quitButton;
@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerController = GameObject.Find("GameManager").GetComponent<GameManager>().playerController;
 
         rollCharacterButton = GameObject.Find("Button_Roll_Character").GetComponent<Button>();
         rollCharacterButton.onClick.AddListener(() => onRollCharacterClicked());
@@ -41,7 +41,7 @@ public class MainMenu : MonoBehaviour
     }
 
     void onPlayGameClicked() {
-        if (gameManager.playerController.isPlayerMade) {
+        if (playerController.isPlayerMade) {
             LoadScene(2);
         }
     }
