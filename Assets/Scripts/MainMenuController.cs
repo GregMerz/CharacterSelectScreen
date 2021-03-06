@@ -13,6 +13,10 @@ public class MainMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+
+    public void initMainMenu(PlayerController playerController) {
         rollCharacterButton = GameObject.Find("Button_Roll_Character").GetComponent<Button>();
         rollCharacterButton.onClick.AddListener(() => SceneManager.LoadScene(1));
 
@@ -21,6 +25,8 @@ public class MainMenuController : MonoBehaviour
 
         quitButton = GameObject.Find("Button_Quit").GetComponent<Button>();
         quitButton.onClick.AddListener(() => quitGame());
+
+        playerController.player.name = "Henry";
     }
 
     // Update is called once per frame

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [SerializeField]
-public class PlayerManager : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     /*
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
         public List<string> itemList;
     }
 
-    public static PlayerManager _instance;
+    public static PlayerController _instance;
     public Player player;
 
     void Awake() {
@@ -54,6 +54,10 @@ public class PlayerManager : MonoBehaviour
             _instance = this;
             player = new Player();
         }
+    }
+
+    void Start() {
+        player = new Player();
     }
 
     // Update is called once per frame

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 using System;
 public class RollCharacterController : MonoBehaviour
 {
+    private PlayerController playerController;
+
     //Buttons
     public Button mainMenuButton;
     public Button makeCharacter;
@@ -58,9 +60,15 @@ public class RollCharacterController : MonoBehaviour
 
     public Race race;
 
+    void Start() {
+
+    }
+
     // Start is called before the first frame update
-    void Start()
+    public void initRollCharacter(PlayerController pController)
     {
+        playerController = pController;
+
         mainMenuButton = GameObject.Find("Button_Main_Menu").GetComponent<Button>();
         mainMenuButton.onClick.AddListener(() => SceneManager.LoadScene(0));
 
@@ -158,7 +166,7 @@ public class RollCharacterController : MonoBehaviour
     }
 
     public void setJSON() {
-        jsonFile.text = "{\"name\": ,\"race\": ,\"playerClass\": ,\"allignment\": ,\"strength\": ,\"dexterity\": ,\"constitution\": ,\"intelligence\": ,\"wisdom\": ,\"charisma\": ,\"currXp\": ,\"maxXp\": ,\"currHp\": ,\"maxHp\": ,\"armorClass\": ,\"walkingSpeed\": ,\"runningSpeed\": ,\"jumpHeight\": ,\"itemList\": }";   
+        jsonFile.text = "{\"name\": \"" + playerController.player.name + "\",\"race\": \"" + playerController.player.race + "\",\"playerClass\": \"" + playerController.player.playerClass + "\",\"allignment\": \"" + playerController.player.allignment + "\",\"strength\": \"" + playerController.player.strength + "\",\"dexterity\": \"" + playerController.player.dexterity + "\",\"constitution\": \"" + playerController.player.constitution + "\",\"intelligence\": \"" + playerController.player.intelligence + "\",\"wisdom\": \"" + playerController.player.wisdom + "\",\"charisma\": \"" + playerController.player.charisma + "\",\"currXp\": " + playerController.player.currXp + ",\"maxXp\": " + playerController.player.maxXp + ",\"currHp\": " + playerController.player.currHp + ",\"maxHp\": " + playerController.player.maxHp + ",\"armorClass\": " + playerController.player.armorClass + ",\"walkingSpeed\": " + playerController.player.walkingSpeed + ",\"runningSpeed\": " + playerController.player.runningSpeed + ",\"jumpHeight\": " + playerController.player.jumpHeight + ",\"itemList\": []}";   
     }
     public void output(string text) {
         
@@ -167,14 +175,12 @@ public class RollCharacterController : MonoBehaviour
     public void raceDropdown_IndexChanged(int index) {
         Race selected = raceList[raceDropdown.value];
 
-/*
-        playerManager.player.race = selected.name;
-        playerManager.player.walkingSpeed = selected.speedWalking;
-        playerManager.player.runningSpeed = selected.speedRunning;
-        playerManager.player.jumpHeight = selected.jumpHeight;
-        playerManager.player.maxHp = selected.HP;
-        playerManager.player.currHp = selected.HP;
-        */
+        playerController.player.race = selected.name;
+        playerController.player.walkingSpeed = selected.speedWalking;
+        playerController.player.runningSpeed = selected.speedRunning;
+        playerController.player.jumpHeight = selected.jumpHeight;
+        playerController.player.maxHp = selected.HP;
+        playerController.player.currHp = selected.HP;       
 
         raceDescription.text = selected.name + "- " + selected.summary
             + "\nHP = " + selected.HP.ToString()
@@ -196,42 +202,42 @@ public class RollCharacterController : MonoBehaviour
 
     void changeTextStrength() {
         int strength = Roll7d4();
-//        playerManager.player.strength = strength;
+        playerController.player.strength = strength;
 
         rolledStrength.text = strength.ToString();
     }
 
     void changeTextDexterity() {
         int dexterity = Roll7d4();
-//        playerManager.player.dexterity = dexterity;
+        playerController.player.dexterity = dexterity;
 
         rolledDexterity.text = "" + dexterity.ToString();
     }
 
     void changeTextConstitution() {
         int constitution = Roll7d4();
-//        playerManager.player.constitution = constitution;
+        playerController.player.constitution = constitution;
 
         rolledConstitution.text = "" + constitution.ToString();
     }
 
     void changeTextIntelligence() {
         int intelligence = Roll7d4();
-//        playerManager.player.intelligence = intelligence;
+        playerController.player.intelligence = intelligence;
 
         rolledIntelligence.text = "" + intelligence.ToString();
     }
 
     void changeTextWisdom() {
         int wisdom = Roll7d4();
-//        playerManager.player.wisdom = wisdom;
+        playerController.player.wisdom = wisdom;
 
         rolledWisdom.text = "" + wisdom.ToString();
     }
 
     void changeTextCharisma() {
         int charisma = Roll7d4();
-//        playerManager.player.charisma = charisma;
+        playerController.player.charisma = charisma;
 
         rolledCharisma.text = "" + charisma.ToString();
     }

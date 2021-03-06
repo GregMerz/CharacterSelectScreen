@@ -6,27 +6,28 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    PlayerManager playerManager;
+    PlayerController playerController;
     RollCharacterController rollCharacterController;
+    MainMenuController mainMenuController;
 
     private void Awake() {
-        playerManager = GetComponent<PlayerManager>();
+        playerController = GetComponent<PlayerController>();
         rollCharacterController = GetComponent<RollCharacterController>();
+        mainMenuController = GetComponent<MainMenuController>();
     }
 
 
     // Start is called before the first frame update
     public void Start()
     {
-        
-
+        mainMenuController.initMainMenu(playerController);
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        rollCharacterController.initRollCharacter(playerController);
     }
 
     
