@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
         public int charisma;
 
         // Player Stats
-        public int currXp;
-        public int maxXp;
+        public int currXp = 0;
+        public int maxXp = 100;
         public int currHp;
         public int maxHp;
         public int armorClass = 14;

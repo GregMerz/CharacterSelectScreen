@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
         rollCharacterButton.onClick.AddListener(() => onRollCharacterClicked());
 
         playGameButton = GameObject.Find("Button_Play_Game").GetComponent<Button>();
-        playGameButton.onClick.AddListener(() => LoadScene(2));
+        playGameButton.onClick.AddListener(() => onPlayGameClicked());
 
         quitButton = GameObject.Find("Button_Quit").GetComponent<Button>();
         quitButton.onClick.AddListener(() => onQuitClicked());
