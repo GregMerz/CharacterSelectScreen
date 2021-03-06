@@ -182,6 +182,7 @@ public class RollCharacter : MonoBehaviour
 
         else {
             inputJSON.SetTextWithoutNotify("Please select all options for your character");
+            playerController.isPlayerMade = false;
         }
     }
     public void setName(string name) {
@@ -201,6 +202,8 @@ public class RollCharacter : MonoBehaviour
         raceDescription.text = selected.name + "- " + selected.summary
             + "\nHP = " + selected.HP.ToString()
             + "\nWalkingSpeed = " + selected.speedWalking.ToString()
+            + "\nRunningSpeed = " + selected.speedRunning.ToString()
+            + "\nJumpHeight = " + selected.jumpHeight.ToString()
             + "\nLanguages = " + selected.languages.ToString();
     }
 
